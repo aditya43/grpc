@@ -11,3 +11,14 @@ WIP (Work In Progress)!
 Open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 -----------
+
+## What is gRPC?
+- gRPC is a free and open source framework developed by Google, Square and other companies.
+- gRPC is part of the Cloud Native Computation Foundation (CNCF). - like Docker and Kubernetes for example.
+- At a high level, gRPC allows us to define REQUEST and RESPONSE for RPC (Remote Procedure Calls) and handles all the rest for us.
+- gRPC is modern, fast and efficient, built on top of HTTP/2, low latency, supports streaming, language independent, and makes it super easy to plug in authentication, load balancing, logging and monitoring.
+- RPC is not a new concept (CORBA had this before).
+- With gRPC, RPC is implemented very cleanly and solves a lot of problems.
+- At the core of gRPC, we need to define messages and services using `Protocol Buffers`.
+- The rest of the gRPC code will be generated for us and we will have to provide an implementation for it.
+- One `.proto` file works for over 12 programming languages (server and client), and allows us to use a framework that scales to millions of RPC per second.
