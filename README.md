@@ -47,3 +47,14 @@ message Person {
 - Looking at above comparison, we save in network bandwidth.
 - Parsing JSON is actually CPU intensive (because the format is Human Readable).
 - Parsing Protocol Buffers (Binary Format) is less CPU intensive because it's closer to how machine represents data.
+
+-----------
+
+## HTTP/2:
+- gRPC leverages HTTP/2 as a backbone for communication.
+- HTTP 1.1 opens a new TCP connection to a server for each request.
+- HTTP 1.1 does not compress headers (Headers are plaintext).
+- HTTP 1.1 only works with Request/Response mechanism (No server push).
+- HTTP 1.1 was originally composed of 2 commands:
+    * GET: to ask for content.
+    * POST: to send content.
