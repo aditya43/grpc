@@ -44,3 +44,6 @@ message Person {
     string last_name = 3;
 }
 ```
+- Looking at above comparison, we save in network bandwidth.
+- Parsing JSON is actually CPU intensive (because the format is Human Readable).
+- Parsing Protocol Buffers (Binary Format) is less CPU intensive because it's closer to how machine represents data.
