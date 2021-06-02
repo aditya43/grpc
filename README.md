@@ -22,3 +22,25 @@ Open-sourced software licensed under the [MIT license](http://opensource.org/lic
 - At the core of gRPC, we need to define messages and services using `Protocol Buffers`.
 - The rest of the gRPC code will be generated for us and we will have to provide an implementation for it.
 - One `.proto` file works for over 12 programming languages (server and client), and allows us to use a framework that scales to millions of RPC per second.
+
+-----------
+
+## Why Protocol Buffers over JSON:
+- gRPC uses Protocol Buffers for communication.
+- Payload size comparison: Protocol Buffers vs. JSON:
+```json
+// 55 bytes
+{
+    "age": 35,
+    "first_name": "Aditya",
+    "last_name": "Hajare"
+}
+```
+```proto
+// 20 bytes
+message Person {
+    int32 age = 1;
+    string first_name = 2;
+    string last_name = 3;
+}
+```
