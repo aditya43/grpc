@@ -68,3 +68,26 @@ message Person {
 - HTTP 2 supports `headers compression`.
 - HTTP 2 is binary.
 - HTTP 2 is secure (SSL is not required but recommended by default).
+
+-----------
+
+## Types of APIs in gRPC:
+- **Unary API**: Classic Request/Response API.
+- **Server Streaming API**: Client asks for a thing and server provides all chunks of that thing as a stream of responses.
+- **Client Streaming API**: Client sends multiple chunks to server as in stream of requests and server responds with a response.
+- **Bi-Directional Streaming API**: Client and server both sends and receives request/response chunks in stream.
+```proto
+service GreetService {
+    // Unary API
+    rpc Greet(GreetRequest) returns (GreetResponse) {};
+
+    // Streaming Server API
+    rpc GreetManyTimes(GreetManyTimesRequest) returns (stream GreetManyTimesResponse) {};
+
+    // Streaming Client API
+    rpc LongGreet(stream LongGreetRequest) returns (LongGreetResponse) {};
+
+    // Bi-Directional Streaming API
+    rpc GreetEveryone(stream GreetEveryoneRequest) returns (stream GreetEveryoneResponse) {};
+}
+```
