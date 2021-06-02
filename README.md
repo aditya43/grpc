@@ -50,7 +50,7 @@ message Person {
 
 -----------
 
-## HTTP/2:
+## HTTP 2:
 - gRPC leverages HTTP/2 as a backbone for communication.
 - HTTP 1.1 opens a new TCP connection to a server for each request.
 - HTTP 1.1 does not compress headers (Headers are plaintext).
@@ -58,3 +58,13 @@ message Person {
 - HTTP 1.1 was originally composed of 2 commands:
     * GET: to ask for content.
     * POST: to send content.
+- HTTP 2 was released in 2015. It has been battle tested for many years. (And was before that tested by Google under the name SPDY).
+- HTTP 2 supports `multiplexing`:
+    * The client and server can push messages in parallel over the same TCP connection.
+    * This will greatly reduce latency.
+- HTTP 2 supports `server push`:
+    * Server can push streams (multiple messages) for one request from the client.
+    * This saves lot of round trips (latency).
+- HTTP 2 supports `headers compression`.
+- HTTP 2 is binary.
+- HTTP 2 is secure (SSL is not required but recommended by default).
