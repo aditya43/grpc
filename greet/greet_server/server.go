@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"strconv"
+	"time"
 
 	"github.com/aditya43/grpc/greet/greetpb"
 	"google.golang.org/grpc"
@@ -12,6 +14,7 @@ import (
 
 type server struct{}
 
+// Unary API
 func (s *server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
 	fmt.Printf("Greet function invoked with request: %v", req)
 
@@ -25,6 +28,25 @@ func (s *server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb
 	}
 
 	return res, nil
+}
+
+// Streaming Server API
+func (s *server) GreetManyTimes(req *greetpb.GreetRequest, stream greetpb.GreetService_GreetManyTimesServer) error {
+	fmt.Printf("GreetManyTimes function invoked with request: %v", req)
+
+	firstName := req.GetGreeting().GetFirstName()
+	lastName := req.GetGreeting().GetLastName()
+
+	for i := 0; i < 10; i++ {
+		str := "Hello " + firstName + " " + lastName + " " + strconv.Itoa(i)
+		res := &greetpb.GreetResponse{
+			Result: str,
+		}
+
+		_ = stream.Send(res)
+		time.Sleep(1000 * time.Millisecond)
+	}
+	return nil
 }
 
 func main() {
