@@ -73,7 +73,9 @@ message Person {
 
 ## Types of APIs in gRPC:
 - **Unary API**: Classic Request/Response API.
-- **Server Streaming API**: Client asks for a thing and server provides all chunks of that thing as a stream of responses.
+- **Server Streaming API**: Client will send `one` message to the server and will receive `many` responses from the server, possibly an infinite number.
+    * `Streaming Server API` are well suited for when the server needs to send a lot of data (big data).
+    * We can use `Streaming Server API` when the server needs to `PUSH` data to the client without having client `REQUEST` for the more. For e.g. Live Feed, Chat etc..
 - **Client Streaming API**: Client sends multiple chunks to server as in stream of requests and server responds with a response.
 - **Bi-Directional Streaming API**: Client and server both sends and receives request/response chunks in stream.
 ```proto
