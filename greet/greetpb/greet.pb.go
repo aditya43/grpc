@@ -189,13 +189,17 @@ var file_greet_greetpb_greet_proto_rawDesc = []byte{
 	0x72, 0x65, 0x65, 0x74, 0x69, 0x6e, 0x67, 0x22, 0x27, 0x0a, 0x0d, 0x47, 0x72, 0x65, 0x65, 0x74,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x73, 0x75,
 	0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74,
-	0x32, 0x44, 0x0a, 0x0c, 0x47, 0x72, 0x65, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x12, 0x34, 0x0a, 0x05, 0x47, 0x72, 0x65, 0x65, 0x74, 0x12, 0x13, 0x2e, 0x67, 0x72, 0x65, 0x65,
+	0x32, 0x85, 0x01, 0x0a, 0x0c, 0x47, 0x72, 0x65, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x12, 0x34, 0x0a, 0x05, 0x47, 0x72, 0x65, 0x65, 0x74, 0x12, 0x13, 0x2e, 0x67, 0x72, 0x65,
+	0x65, 0x74, 0x2e, 0x47, 0x72, 0x65, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x14, 0x2e, 0x67, 0x72, 0x65, 0x65, 0x74, 0x2e, 0x47, 0x72, 0x65, 0x65, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3f, 0x0a, 0x0e, 0x47, 0x72, 0x65, 0x65, 0x74,
+	0x4d, 0x61, 0x6e, 0x79, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x12, 0x13, 0x2e, 0x67, 0x72, 0x65, 0x65,
 	0x74, 0x2e, 0x47, 0x72, 0x65, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14,
 	0x2e, 0x67, 0x72, 0x65, 0x65, 0x74, 0x2e, 0x47, 0x72, 0x65, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x11, 0x5a, 0x0f, 0x2e, 0x2f, 0x67, 0x72, 0x65, 0x65,
-	0x74, 0x2f, 0x67, 0x72, 0x65, 0x65, 0x74, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x42, 0x11, 0x5a, 0x0f, 0x2e, 0x2f, 0x67, 0x72,
+	0x65, 0x65, 0x74, 0x2f, 0x67, 0x72, 0x65, 0x65, 0x74, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -219,9 +223,11 @@ var file_greet_greetpb_greet_proto_goTypes = []interface{}{
 var file_greet_greetpb_greet_proto_depIdxs = []int32{
 	0, // 0: greet.GreetRequest.greeting:type_name -> greet.Greeting
 	1, // 1: greet.GreetService.Greet:input_type -> greet.GreetRequest
-	2, // 2: greet.GreetService.Greet:output_type -> greet.GreetResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+	1, // 2: greet.GreetService.GreetManyTimes:input_type -> greet.GreetRequest
+	2, // 3: greet.GreetService.Greet:output_type -> greet.GreetResponse
+	2, // 4: greet.GreetService.GreetManyTimes:output_type -> greet.GreetResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -304,6 +310,8 @@ const _ = grpc.SupportPackageIsVersion6
 type GreetServiceClient interface {
 	// Unary API
 	Greet(ctx context.Context, in *GreetRequest, opts ...grpc.CallOption) (*GreetResponse, error)
+	// Server Streaming API
+	GreetManyTimes(ctx context.Context, in *GreetRequest, opts ...grpc.CallOption) (GreetService_GreetManyTimesClient, error)
 }
 
 type greetServiceClient struct {
@@ -323,10 +331,44 @@ func (c *greetServiceClient) Greet(ctx context.Context, in *GreetRequest, opts .
 	return out, nil
 }
 
+func (c *greetServiceClient) GreetManyTimes(ctx context.Context, in *GreetRequest, opts ...grpc.CallOption) (GreetService_GreetManyTimesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_GreetService_serviceDesc.Streams[0], "/greet.GreetService/GreetManyTimes", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &greetServiceGreetManyTimesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type GreetService_GreetManyTimesClient interface {
+	Recv() (*GreetResponse, error)
+	grpc.ClientStream
+}
+
+type greetServiceGreetManyTimesClient struct {
+	grpc.ClientStream
+}
+
+func (x *greetServiceGreetManyTimesClient) Recv() (*GreetResponse, error) {
+	m := new(GreetResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // GreetServiceServer is the server API for GreetService service.
 type GreetServiceServer interface {
 	// Unary API
 	Greet(context.Context, *GreetRequest) (*GreetResponse, error)
+	// Server Streaming API
+	GreetManyTimes(*GreetRequest, GreetService_GreetManyTimesServer) error
 }
 
 // UnimplementedGreetServiceServer can be embedded to have forward compatible implementations.
@@ -335,6 +377,9 @@ type UnimplementedGreetServiceServer struct {
 
 func (*UnimplementedGreetServiceServer) Greet(context.Context, *GreetRequest) (*GreetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Greet not implemented")
+}
+func (*UnimplementedGreetServiceServer) GreetManyTimes(*GreetRequest, GreetService_GreetManyTimesServer) error {
+	return status.Errorf(codes.Unimplemented, "method GreetManyTimes not implemented")
 }
 
 func RegisterGreetServiceServer(s *grpc.Server, srv GreetServiceServer) {
@@ -359,6 +404,27 @@ func _GreetService_Greet_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GreetService_GreetManyTimes_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GreetRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(GreetServiceServer).GreetManyTimes(m, &greetServiceGreetManyTimesServer{stream})
+}
+
+type GreetService_GreetManyTimesServer interface {
+	Send(*GreetResponse) error
+	grpc.ServerStream
+}
+
+type greetServiceGreetManyTimesServer struct {
+	grpc.ServerStream
+}
+
+func (x *greetServiceGreetManyTimesServer) Send(m *GreetResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _GreetService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "greet.GreetService",
 	HandlerType: (*GreetServiceServer)(nil),
@@ -368,6 +434,12 @@ var _GreetService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _GreetService_Greet_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GreetManyTimes",
+			Handler:       _GreetService_GreetManyTimes_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "greet/greetpb/greet.proto",
 }
