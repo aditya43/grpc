@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 
 	"github.com/aditya43/grpc/greet/greetpb"
@@ -49,5 +50,19 @@ func doServerStreaming(client greetpb.GreetServiceClient) {
 	if err != nil {
 		log.Fatalf("Error response received: %v", err)
 	}
-	fmt.Println(resStream)
+
+	for {
+		msg, err := resStream.Recv()
+		if err != io.EOF {
+			// We've reached the end of stream
+			break
+		}
+
+		if err != nil {
+			log.Fatalf("Error while reading stream: %v", err)
+		}
+
+		res := msg.GetResult()
+		fmt.Printf("Response: %v\n", res)
+	}
 }
