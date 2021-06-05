@@ -21,6 +21,7 @@ func main() {
 	client := greetpb.NewGreetServiceClient(clientConn)
 
 	doUnary(client)
+	doServerStreaming(client)
 }
 
 func doUnary(client greetpb.GreetServiceClient) {
@@ -35,4 +36,18 @@ func doUnary(client greetpb.GreetServiceClient) {
 		log.Fatalf("Error response received: %v", err)
 	}
 	fmt.Println(res.Result)
+}
+
+func doServerStreaming(client greetpb.GreetServiceClient) {
+	req := &greetpb.GreetRequest{
+		Greeting: &greetpb.Greeting{
+			FirstName: "Aditya",
+			LastName:  "Hajare",
+		},
+	}
+	resStream, err := client.GreetManyTimes(context.Background(), req)
+	if err != nil {
+		log.Fatalf("Error response received: %v", err)
+	}
+	fmt.Println(resStream)
 }
