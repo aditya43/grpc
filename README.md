@@ -76,7 +76,7 @@ message Person {
 - **Server Streaming API**: Client will send `one` message to the server and will receive `many` responses from the server, possibly an infinite number.
     * `Streaming Server API` are well suited for when the server needs to send a lot of data (big data).
     * We can use `Streaming Server API` when the server needs to `PUSH` data to the client without having client `REQUEST` for the more. For e.g. Live Feed, Chat etc..
-- **Client Streaming API**: Client sends multiple chunks to server as in stream of requests and server responds with a response.
+- **Client Streaming API**: Client sends multiple chunks to server as in stream of requests and server responds with a single response.
 - **Bi-Directional Streaming API**: Client and server both sends and receives request/response chunks in stream.
 ```proto
 service GreetService {
