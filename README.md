@@ -77,11 +77,16 @@ message Person {
     * `Streaming Server API` are well suited for when the server needs to send a lot of data (big data).
     * We can use `Streaming Server API` when the server needs to `PUSH` data to the client without having client `REQUEST` for the more. For e.g. Live Feed, Chat etc..
 - **Client Streaming API**: Client sends multiple chunks to server as in stream of requests and server responds with a single response.
+    * Thanks to HTTP/2.
     * `Streaming Client API` is well suited when the client needs to send lot of data (big data).
     * We can use `Streaming Client API` when the server processing is expensive and should happen as the client sends data.
     * It is also useful when client needs to **PUSH** data to the server without really expecting a response.
     * In gRPC, Client streaming calls are defined using the keywork `stream`.
 - **Bi-Directional Streaming API**: Client and server both sends and receives request/response chunks in stream.
+    * Thanks to HTTP/2.
+    * `Bi-Directional Streaming` is useful when the Client and Server needs to send a lot of data asynchronously.
+    * Also useful for implementing **Chat** protocol.
+    * They are also good for implementing long running connections.
 ```proto
 service GreetService {
     // Unary API
