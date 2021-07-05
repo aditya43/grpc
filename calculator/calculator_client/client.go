@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"time"
 
 	"github.com/aditya43/grpc/calculator/calculatorpb"
 	"google.golang.org/grpc"
@@ -24,6 +25,7 @@ func main() {
 	doUnary(client)
 	doServerStreaming(client)
 	doClientStreaming(client)
+	doBidirectionalStreaming(client)
 }
 
 func doUnary(client calculatorpb.CalculatorServiceClient) {
@@ -79,4 +81,41 @@ func doClientStreaming(client calculatorpb.CalculatorServiceClient) {
 		log.Fatalf("Error while receiving response: %v\n", err)
 	}
 	fmt.Printf("The average is: %v", res.GetAverage())
+}
+
+func doBidirectionalStreaming(client calculatorpb.CalculatorServiceClient) {
+	stream, err := client.FindMaximum(context.Background())
+	if err != nil {
+		log.Fatalf("Error opening client stream: %v", err)
+	}
+
+	waitChan := make(chan struct{})
+	go func() {
+		defer stream.CloseSend()
+		numbers := []int32{7, 2, 9, 24, 1, 3, 99, 55}
+		for _, num := range numbers {
+			fmt.Printf("Sending number: %v\n", num)
+			stream.Send(&calculatorpb.FindMaximumRequest{
+				Number: num,
+			})
+			time.Sleep(1000 * time.Millisecond)
+		}
+	}()
+
+	go func() {
+		defer close(waitChan)
+		for {
+			res, err := stream.Recv()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				log.Fatalf("Error while receiving response: %v\n", err)
+				break
+			}
+			fmt.Printf("New Maximum: %v\n", res.GetMaximum())
+		}
+	}()
+
+	<-waitChan
 }
