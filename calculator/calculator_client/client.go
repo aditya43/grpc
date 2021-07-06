@@ -9,6 +9,7 @@ import (
 
 	"github.com/aditya43/grpc/calculator/calculatorpb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/status"
 )
 
 func main() {
@@ -26,6 +27,7 @@ func main() {
 	doServerStreaming(client)
 	doClientStreaming(client)
 	doBidirectionalStreaming(client)
+	doErrorHandlingExampleUnary(client)
 }
 
 func doUnary(client calculatorpb.CalculatorServiceClient) {
@@ -118,4 +120,30 @@ func doBidirectionalStreaming(client calculatorpb.CalculatorServiceClient) {
 	}()
 
 	<-waitChan
+}
+
+func doErrorHandlingExampleUnary(client calculatorpb.CalculatorServiceClient) {
+	numbers := []int32{12, -4}
+
+	for _, num := range numbers {
+		res, err := client.SquareRoot(context.Background(), &calculatorpb.SquareRootRequest{
+			Number: num,
+		})
+
+		if err != nil {
+			respErr, ok := status.FromError(err)
+			if ok {
+				// Actual error from gRPC (use error)
+				fmt.Println(respErr.Details()...)
+				fmt.Println(respErr.Message(), respErr.Code())
+				return
+			} else {
+				// Internal/Framework error
+				log.Fatalf("Error calling SquareRoot: %v", err)
+				return
+			}
+		}
+
+		fmt.Printf("SquareRoot of number %v is: %v", num, res.GetNumberRoot())
+	}
 }
