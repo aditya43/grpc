@@ -129,3 +129,10 @@ service GreetService {
 - Deadlines in depth: [https://grpc.io/blog/deadlines](https://grpc.io/blog/deadlines/)
 - Deadlines are propagated across gRPC calls if the gRPC calls are chained. For e.g.
     * `A ---> B ---> C`: Deadline for `A` is passed to `B` and then passed to `C`. i.e. `C` will be aware of Deadline of `A`.
+
+    -----------
+
+## gRPC SSL:
+- In production, gRPC calls should be running with encryption enabled.
+- This is done by generating SSL certificates.
+- SSL allows communication to be secure end-to-end and ensuring no Man-In-The-Middle attack can be performed.
