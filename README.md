@@ -112,3 +112,20 @@ service GreetService {
 - gRPC clients has a choice of being Asynchronous or Synchronous (blocking).
 - gRPC clients can perform client side load balancing.
 - Google has 10 Billion gRPC requests being made per second internally.
+
+-----------
+
+## Error Codes:
+- With gRPC, there are few error codes. More Info: [https://www.grpc.io/docs/guides/error](https://www.grpc.io/docs/guides/error/)
+- Complete reference for implementing error handling: [https://avi.im/grpc-errors](https://avi.im/grpc-errors/)
+- If an application needs to return extra information on top of an error code, it can use the `metadata` context.
+
+-----------
+
+## gRPC Deadlines:
+- Deadlines allows gRPC clients to specify how long they are willing to wait for an RPC to complete before the RPC is terminated with the error `DEADLINE_EXCEEDED`.
+- The gRPC documentation recommends setting deadline for all client RPC calls.
+- The server should check if the deadline has exceeded and if it is exceeded then server must cancel the work it is doing.
+- Deadlines in depth: [https://grpc.io/blog/deadlines](https://grpc.io/blog/deadlines/)
+- Deadlines are propagated across gRPC calls if the gRPC calls are chained. For e.g.
+    * `A ---> B ---> C`: Deadline for `A` is passed to `B` and then passed to `C`. i.e. `C` will be aware of Deadline of `A`.
