@@ -136,3 +136,4 @@ service GreetService {
 - In production, gRPC calls should be running with encryption enabled.
 - This is done by generating SSL certificates.
 - SSL allows communication to be secure end-to-end and ensuring no Man-In-The-Middle attack can be performed.
+- Refer to: [https://github.com/aditya43/grpc/blob/main/ssl/steps.sh](https://github.com/aditya43/grpc/blob/main/ssl/steps.sh)
